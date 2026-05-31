@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subscription_features', function (Blueprint $table) {
+        Schema::create('subscription_plan_features', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('subscription_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('subscription_plan_id')->constrained()->cascadeOnDelete();
             $table->string('feature_key');
             $table->string('feature_value')->nullable();
             $table->string('feature_text')->nullable();
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subscription_features');
+        Schema::dropIfExists('subscription_plan_features');
     }
 };

@@ -1,23 +1,19 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Tenant;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class TenantDatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      */
     public function run(): void
     {
         $this->call([
             UserSeeder::class,
-            TenantSeeder::class,
         ]);
     }
 }
