@@ -15,10 +15,10 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::firstOrCreate(
-            ['email' => 'admin@tenant.localhost'],
+            ['email' => 'tenant@example.com'],
             [
                 'name' => 'Tenant Admin',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('123456'),
             ]
         );
     }
