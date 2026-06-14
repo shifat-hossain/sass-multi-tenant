@@ -1,9 +1,10 @@
 import './bootstrap';
-import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Main from './Main';
+import { RouterProvider } from 'react-router';
+import router from './routes/AppRouter';
 
+const root = document.getElementById("app");
 
-ReactDOM.createRoot(document.getElementById('app')).render(
-    <Main />
+ReactDOM.createRoot(root).render(
+    <RouterProvider router={router} />
 );
