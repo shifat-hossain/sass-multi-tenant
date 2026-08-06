@@ -6,6 +6,10 @@ import About from "../pages/Frontend/About";
 import Customer from "../pages/Frontend/Customer";
 import Pricing from "../pages/Frontend/Pricing";
 import Login from "../pages/Frontend/Login";
+import Dashboard from "../pages/Backend/Dashboard";
+import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
+import App from "../pages/Backend/App";
 
 const router = createBrowserRouter([
     {
@@ -22,9 +26,24 @@ const router = createBrowserRouter([
         ],
 
     },
-
     {
-        path: "login", Component: Login,
+        Component: PublicRoute,
+        children: [
+            { path: "login", Component: Login },
+        ],
+    },
+    {
+        Component: ProtectedRoute,
+        children: [
+            { 
+                path: "/admin/", Component: App,
+                children: [
+                    { path: "dashboard", Component: Dashboard },
+                ], 
+            },
+            
+        ],
+
     },
 
 ], {
