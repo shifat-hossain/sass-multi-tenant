@@ -2,6 +2,7 @@ import axios from "axios";
 
 const headers = {
     "Accept": "application/json",
+    "X-Requested-With": "XMLHttpRequest",
 }
 
 export const axiosCLient = axios.create({

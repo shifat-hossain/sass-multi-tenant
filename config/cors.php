@@ -19,7 +19,10 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost/projects/sass-multi-tenant/public'],
+    'allowed_origins' => [
+        'http://localhost',
+        'http://localhost/projects/sass-multi-tenant/public'
+    ],
 
     'allowed_origins_patterns' => [],
 

@@ -9,7 +9,7 @@ export function AuthProvider( { children }) {
     useEffect(() => {
         const fetchUser = async () => {
         try {
-            await axiosCLient.get('/sanctum/csrf-cookie');
+            // await axiosCLient.get('/sanctum/csrf-cookie');
             const { data } = await axiosCLient.get('api/user');
             setAuthUser(data);
         } catch (error) {
