@@ -127,7 +127,6 @@ export default function Login() {
                             try {
                                 await axiosCLient.get('/sanctum/csrf-cookie');
                                 const response = await axiosCLient.post('api/login', values);
-                                // console.log(response.data.data.user);
                                 login(response.data.data.user);
                                 notify.success('Login successful');
                                 navigate('/admin/dashboard');
@@ -141,14 +140,12 @@ export default function Login() {
                                         401: () => notify.error(data.message),
                                     };
 
-                                    // Execute handler for specific status or default to generic error
                                     if (statusHandlers[status]) {
                                         statusHandlers[status]();
                                     } else {
                                         notify.error(data.message || 'An unexpected error occurred. Please try again.');
                                     }
                                 } else {
-                                    // Network error or no response from server
                                     notify.error('Network error. Please check your connection and try again.');
                                 }
                             } finally {

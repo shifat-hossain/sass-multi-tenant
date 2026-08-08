@@ -6,7 +6,7 @@ use Illuminate\Http\JsonResponse;
 
 abstract class Controller
 {
-    public function sendSuccessResponse($result = [], $message = '', $code = 200): JsonResponse
+    public function sendSuccessResponse($message = '', $code = 200, $result = []): JsonResponse
     {
         $response = [
             'success' => true,

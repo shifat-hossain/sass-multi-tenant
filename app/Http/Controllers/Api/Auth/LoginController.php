@@ -17,16 +17,22 @@ class LoginController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $token = $user->createToken('api-token')->plainTextToken;
+        if (Auth::guard('web')->attempt($credentials)) {
+            $request->session()->regenerate();
+            $user = Auth::guard('web')->user();
             
-            return $this->sendSuccessResponse([
-                'token' => $token,
+            return $this->sendSuccessResponse('Login successful', 200, [
                 'user' => new UserResource($user)
-            ], 'Login successful');
+            ]);
         }
 
         return $this->sendErrorResponse('Invalid credentials', 401);
+    }
+
+    public function logout(Request $request) {
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return $this->sendSuccessResponse('Logged out successfully', 200);
     }
 }
