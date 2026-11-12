@@ -6,10 +6,13 @@ import About from "../pages/Frontend/About";
 import Customer from "../pages/Frontend/Customer";
 import Pricing from "../pages/Frontend/Pricing";
 import Login from "../pages/Frontend/Login";
-import Dashboard from "../pages/Backend/Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 import App from "../pages/Backend/App";
+import Dashboard from "../pages/Backend/Dashboard";
+import SubscriptionPlans from "../pages/Backend/SubscriptionPlans";
+import CreatePlan from "../pages/Backend/SubscriptionPlans/Create";
+import EditPlan from "../pages/Backend/SubscriptionPlans/Edit";
 
 const router = createBrowserRouter([
     {
@@ -35,19 +38,22 @@ const router = createBrowserRouter([
     {
         Component: ProtectedRoute,
         children: [
-            { 
+            {
                 path: "/admin/", Component: App,
                 children: [
                     { path: "dashboard", Component: Dashboard },
-                ], 
+                    { path: "subscription-plans", Component: SubscriptionPlans },
+                    { path: "subscription-plans/create", Component: CreatePlan },
+                    { path: "subscription-plans/edit/:id", Component: EditPlan },
+                ],
             },
-            
+
         ],
 
     },
 
 ], {
-    basename: "/projects/sass-multi-tenant/public"
+    basename: "/"
 }
 );
 

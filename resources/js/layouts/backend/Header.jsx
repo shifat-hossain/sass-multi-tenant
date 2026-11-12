@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function Header({ isSidebarCollapsed, setIsSidebarCollapsed }) {
+    const location = useLocation();
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const dropdownRef = useRef(null);
     const { authUser, logout } = useAuth();
@@ -29,7 +31,12 @@ export default function Header({ isSidebarCollapsed, setIsSidebarCollapsed }) {
                         </svg>
                     </button>
 
-                    <h1 className="font-bold text-xl text-slate-800 tracking-tight">Dashboard</h1>
+                    <h1 className="font-bold text-xl text-slate-800 tracking-tight">
+                        {location.pathname === "/admin/dashboard" && "Dashboard"}
+                        {location.pathname === "/admin/subscription-plans" && "Subscription Plans"}
+                        {location.pathname === "/admin/subscription-plans/create" && "Create Subscription Plan"}
+                        {location.pathname.includes("/admin/subscription-plans/edit") && "Edit Subscription Plan"}
+                    </h1>
 
                     {/* Sidebar Collapse Toggle Button */}
                     <button
@@ -100,7 +107,7 @@ export default function Header({ isSidebarCollapsed, setIsSidebarCollapsed }) {
                             </div>
                             <div className="flex flex-col text-left hidden sm:flex">
                                 <span className="text-sm font-bold text-slate-800 leading-tight">
-                                    {authUser?.data.name}
+                                    {authUser?.name}
                                 </span>
                                 <span className="text-[11px] font-medium text-slate-400">Owner</span>
                             </div>
@@ -116,7 +123,7 @@ export default function Header({ isSidebarCollapsed, setIsSidebarCollapsed }) {
                                 <div className="px-4 py-3 border-b border-slate-50 flex flex-col">
                                     <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Signed in as</span>
                                     <span className="text-sm font-bold text-slate-700 truncate mt-0.5">
-                                        {authUser?.data.email}
+                                        {authUser?.email}
                                     </span>
                                 </div>
 
