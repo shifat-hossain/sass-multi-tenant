@@ -1,0 +1,45 @@
+services:
+    php:
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        ports:
+            - '8080:80'
+        volumes:
+            - ./:/var/www/sass_multi_tenant
+            - ./docker/apache/default.conf:/etc/apache2/sites-enabled/000-default.conf
+        depends_on:
+            mysql:
+                condition: service_healthy
+
+    mysql:
+        image: 'mariadb:11.4'
+        ports:
+            - "3306:3306"
+        restart: unless-stopped
+        environment:
+            MARIADB_DATABASE: db_sass_multi_tenant
+            MARIADB_ROOT_PASSWORD: db_sass_multi_tenant
+            MARIADB_PASSWORD: db_sass_multi_tenant
+            MARIADB_USER: db_sass_multi_tenant
+        volumes:
+            - mysql_data:/var/lib/mysql
+        healthcheck:
+            test: ['CMD', 'healthcheck.sh', '--connect', '--innodb_initialized']
+            interval: 5s
+            timeout: 5s
+            retries: 20
+            start_period: 20s
+
+    phpmyadmin:
+        image: phpmyadmin:5
+        ports:
+            - "8081:80"
+        environment:
+            PMA_HOST: mysql
+        depends_on:
+            mysql:
+                condition: service_healthy
+
+volumes:
+    mysql_data:
