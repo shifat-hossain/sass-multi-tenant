@@ -11,7 +11,7 @@ export function AuthProvider( { children }) {
     const fetchUser = async () => {
         try {
             const { data } = await axiosCLient.get('api/user');
-            setAuthUser(data);
+            setAuthUser(data.data);
         } catch (error) {
             setAuthUser(null);
         } finally {

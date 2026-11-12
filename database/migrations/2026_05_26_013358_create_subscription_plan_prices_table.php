@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('subscription_plan_prices', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->foreignId('subscription_plan_id')->constrained()->cascadeOnDelete();
             $table->string('type')->comment('monthly, yearly');
-            $table->decimal('price', 10, 2);
             $table->integer('duration');
             $table->string('duration_unit')->comment('month, year');
-            $table->decimal('discount_amount', 10, 2)->nullable();
-            $table->decimal('discount_percentage', 5, 2)->nullable();
-            $table->decimal('final_price', 10, 2);
+            $table->decimal('price', 10, 2);
+            $table->string('discount_type')->nullable()->comment('fixed, percentage');
+            $table->decimal('discount_value', 10, 2)->default(0);
+            $table->decimal('final_price', 10, 2)->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
